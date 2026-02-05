@@ -1,0 +1,13 @@
+services:
+  - type: worker
+    name: polymarket-latency-test
+    runtime: python
+    region: frankfurt # Cambiar a: frankfurt, oregon, ohio, singapore
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    envVars:
+      - key: TEST_INTERVAL
+        value: "60"
+      - key: PYTHON_VERSION
+        value: "3.11.0"
