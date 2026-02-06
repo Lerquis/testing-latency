@@ -253,12 +253,13 @@ async def monitor_market(market_info: dict):
                 )
                 
                 # SI HAY ARB: Imprimir SIEMPRE y rápido
+                # SI HAY ARB: Imprimir SIEMPRE y rápido
                 if total_cost < 1.0:
                     logger.info(f"💎 {log_msg} | 🚀 PURE ARB: {profit_pct:.2f}% PROFIT!")
                 
-                # SI NO HAY ARB: Imprimir todo lo que llegue para máxima velocidad visual
-                else:
-                    logger.info(f"   {log_msg}")
+                # SI NO HAY ARB: No imprimir nada (silencio)
+                # else:
+                #    logger.info(f"   {log_msg}")
             else:
                 if now - last_log_ts >= 1.0:
                     logger.debug("   Esperando liquidez en ambos lados...")
