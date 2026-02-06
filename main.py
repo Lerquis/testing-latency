@@ -7,7 +7,9 @@ import time
 import httpx
 import logging
 import os
+import asyncio
 from datetime import datetime
+import simple_pure_arb
 
 # Configurar logging
 logging.basicConfig(
@@ -104,18 +106,25 @@ def run_latency_test():
 
 
 def main():
-    """Función principal - corre pruebas en loop."""
-    logger.info("🚀 Iniciando Polymarket Latency Test")
-    logger.info(f"⏱️  Intervalo entre pruebas: {TEST_INTERVAL} segundos")
+    """Función principal."""
+    os.system('cls' if os.name == 'nt' else 'clear')
+    
+    # 1. Correr Latency Test una vez
+    run_latency_test()
+    
+    # 2. Pasar control al bot de arbitraje
+    print("\n" + "="*60)
+    logger.info("🚀 Transfiriendo control a Simple Pure Arb...")
+    print("="*60 + "\n")
     
     try:
-        while True:
-            run_latency_test()
-            logger.info(f"\n⏳ Próximo test en {TEST_INTERVAL} segundos...\n")
-            time.sleep(TEST_INTERVAL)
+        asyncio.run(simple_pure_arb.main())
     except KeyboardInterrupt:
-        logger.info("\n👋 Test finalizado por el usuario")
+        logger.info("\n👋 Programa finalizado por usuario")
+    except Exception as e:
+        logger.error(f"Error fatal ejecutando pure arb: {e}")
 
 
 if __name__ == "__main__":
     main()
+
